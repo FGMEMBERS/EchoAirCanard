@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<PropertyList>
+  <path>canard.ac</path>
+  <nasal>
+    <load>
+#Liveries not working
+      var livery_update = aircraft.livery_update.new("Aircraft/EchoAirCanard/Models/Liveries", 10);
+
+      var self = cmdarg();
+#Door animation
+      var float_0 = self.getNode("sim/multiplay/generic/float[0]", 1);
+      var float_1 = self.getNode("sim/multiplay/generic/float[1]", 1);
+      var float_2 = self.getNode("sim/multiplay/generic/float[2]", 1);
+      var float_3 = self.getNode("sim/multiplay/generic/float[3]", 1);
+      var float_4 = self.getNode("sim/multiplay/generic/float[4]", 1);
+      
+      var crew_door = self.getNode("sim/model/door-positions/crew/position-norm", 1);
+      var passenger_door = self.getNode("sim/model/door-positions/passenger/position-norm", 1);
+      var batt_door1 = self.getNode("sim/model/door-positions/batt1/position-norm", 1);
+      var batt_door2 = self.getNode("sim/model/door-positions/batt2/position-norm", 1);
+      var engine_door = self.getNode("sim/model/door-positions/engine/position-norm", 1);
+      
+      crew_door.alias(float_0);
+      passenger_door.alias(float_1);
+      batt_door1.alias(float_2);
+      batt_door2.alias(float_3);
+      engine_door.alias(float_4);
+    </load>
+
+    <unload>
+      livery_update.stop();
+      crew_door.unalias();
+      passenger_door.unalias();
+    </unload>
+  </nasal>
+<!--All parts of the propeller-->
+    <animation>
+      <name>prop</name>
+      <object-name>prop1</object-name>
+      <object-name>prop2</object-name>
+      <object-name>prop3</object-name>
+    </animation>
+<!--Material Animations and Effects-->
+ <animation>
+    <type>material</type>
+    <object-name>hstab</object-name>
+    <object-name>elevator</object-name>
+    <object-name>vstab</object-name>
+    <object-name>body</object-name>
+    <object-name>interior</object-name>
+    <object-name>wheelL</object-name>
+    <object-name>wheelR</object-name>
+    <object-name>wheelF</object-name>
+    <object-name>gearfront</object-name>
+    <object-name>gearfixR</object-name>
+    <object-name>prop</object-name>
+    <object-name>seatF</object-name>
+   	<object-name>seatR</object-name>
+   	<object-name>wing</object-name>
+   	<object-name>battroom</object-name>
+   	<object-name>battdoor1</object-name>
+   	<object-name>battdoor2</object-name>
+   	<object-name>enginedoor</object-name>
+    <condition>
+      <not><property>/sim/model/config/use-dds</property></not>
+    </condition>
+
+<ambient>
+   <red>0.8</red>
+   <green>0.8</green>
+   <blue>0.8</blue>
+  </ambient>
+  <shininess>128</shininess>
+    <specular>
+      <red>1</red>
+      <green>1</green>
+      <blue>1</blue>
+    </specular>
+  </animation>
+
+  <animation>
+    <object-name>elevator</object-name>
+    <object-name>elevator</object-name>
+    <object-name>rudder</object-name>
+    <object-name>elevatorstab</object-name>
+    <object-name>fixrear</object-name>
+    <object-name>wheelL</object-name>
+    <object-name>wheelR</object-name>
+    <object-name>mainbar</object-name>
+    <object-name>gearfixF</object-name>
+    <object-name>gearfixR</object-name>
+    <object-name>fairing3</object-name>
+    <object-name>engine</object-name>
+   	<object-name>spinner</object-name>
+	<object-name>seats</object-name>
+  </animation>
+<!--Interior Shading, available >3.5-->
+ <effect>
+    <inherits-from>Aircraft/EchoAirCanard/Models/Effects/interior/c172p-interior</inherits-from>
+          <object-name>interior</object-name>
+          <object-name>seatF</object-name>
+          <object-name>seatR</object-name>
+  </effect>
+  <effect>
+    <inherits-from>Aircraft/EchoAirCanard/Models/Effects/Glass/glass</inherits-from>
+          <object-name>doorL</object-name>
+          <object-name>doorR</object-name>
+          <object-name>landinglightglass</object-name>
+  </effect>
+  <effect>
+    <inherits-from>Effects/model-transparent</inherits-from>
+          <object-name>doorL</object-name>
+          <object-name>doorR</object-name>
+          <object-name>landinglightglass</object-name>
+</effect>
+
+  <animation>
+    <type>shader</type>
+    <shader>chrome</shader>
+    <texture>colors.png</texture>
+    <object-name>hstab</object-name>
+    <object-name>elevator</object-name>
+    <object-name>vstab</object-name>
+    <object-name>body</object-name>
+    <object-name>interior</object-name>
+    <object-name>wheelL</object-name>
+    <object-name>wheelR</object-name>
+    <object-name>wheelF</object-name>
+    <object-name>gearfront</object-name>
+    <object-name>gearfixR</object-name>
+    <object-name>prop</object-name>
+    <object-name>seatF</object-name>
+   	<object-name>seatR</object-name>
+   	<object-name>wing</object-name>
+   	<object-name>battroom</object-name>
+   	<object-name>battdoor1</object-name>
+   	<object-name>battdoor2</object-name>
+   	<object-name>enginedoor</object-name>
+  </animation>
+<!--Battery animation-->
+<!--Batteries-->
+
+  <animation>
+    <type>pick</type>
+    <object-name>batt1connector</object-name>
+    <object-name>batt2connector</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+<condition>
+<and>
+<not>
+<property>/sim/model/battery/battery1/out</property>
+</not>
+<not>
+<property>/sim/model/battery/battery2/out</property>
+</not>
+</and>
+</condition>
+<command>property-toggle</command>
+<property>/sim/model/battery/battconnectors/in</property>
+      </binding>
+      <binding>
+        <command>property-toggle</command>
+        <property>controls/engines/engine[0]/starter1</property>
+      </binding>
+<binding>
+        <command>property-toggle</command>
+        <property>controls/engines/engine[0]/magnetos</property>
+      </binding>
+    </action>
+  </animation>
+ <animation>
+    <type>translate</type>
+    <object-name>batt1connector</object-name>
+    <property>/sim/model/battery/battconnectors/in</property>
+    <factor> 0.1 </factor>
+    <axis>
+      <x> -1 </x>
+    </axis>
+  </animation>
+  <animation>
+    <type>translate</type>
+    <object-name>batt2connector</object-name>
+    <property>/sim/model/battery/battconnectors/in</property>
+    <factor> 0.1 </factor>
+    <axis>
+      <x> -1 </x>
+    </axis>
+  </animation>
+ 
+  
+<!--Battery 1 in/out-->
+  <animation>
+    <type>pick</type>
+    <object-name>battery1</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+<condition>
+<not>
+<property>/sim/model/battery/battconnectors/in</property>
+</not>
+</condition>
+<command>property-toggle</command>
+<property>/sim/model/battery/battery1/out</property>
+      </binding>
+    </action>
+  </animation>
+ <animation>
+    <type>translate</type>
+    <object-name>battery1</object-name>
+    <property>/sim/model/battery/battery1/out</property>
+    <factor> 1.5 </factor>
+    <axis>
+      <x> -0.3 </x>
+      <y> -0.8 </y>
+      <z> 0.05 </z>
+    </axis>
+  </animation>
+  <!--Battery2 in/out-->
+ <animation>
+    <type>pick</type>
+    <object-name>battery2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+<condition>
+<not>
+<property>/sim/model/battery/battconnectors/in</property>
+</not>
+</condition>
+<command>property-toggle</command>
+<property>/sim/model/battery/battery2/out</property>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>translate</type>
+    <object-name>battery2</object-name>
+    <property>/sim/model/battery/battery2/out</property>
+    <factor> 1.5 </factor>
+    <axis>
+      <x> -0.3 </x>
+      <y> -0.5 </y>
+      <z> 0.15 </z>
+    </axis>
+  </animation>
+  <animation>
+    <type>rotate</type>
+    <object-name>battery2</object-name>
+    <property>/sim/model/battery/battery2/out</property>
+    <factor> 1.5 </factor>
+    <axis>
+      <y> -1 </y>
+    </axis>
+  </animation>
+
+  <!-- Door animations -->
+<!--Battery doors-->
+  <animation>
+    <type>pick</type>
+    <object-name>battdoor1</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.batt1.toggle();</script>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>battdoor1</object-name>
+    <property>sim/model/door-positions/batt1/position-norm</property>
+    <factor> -80 </factor>
+<center>
+<x-m>1.9744</x-m>
+<y-m>-0.1712</y-m>
+<z-m>0.4512</z-m>
+</center>
+    <axis>
+      <x> 1 </x>
+      <z> -0.55 </z>
+      <y> 0.3 </y>
+    </axis>
+  </animation>
+    <animation>
+    <type>pick</type>
+    <object-name>battdoor2</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.batt2.toggle();</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>battdoor2</object-name>
+    <property>sim/model/door-positions/batt2/position-norm</property>
+    <factor> -80 </factor>
+<center>
+<x-m>1.9872</x-m>
+<y-m>-0.1712</y-m>
+<z-m>-0.0389</z-m>
+</center>
+    <axis>
+      <x> -1 </x>
+    </axis>
+  </animation>
+
+<!--Engine door-->
+    <animation>
+    <type>pick</type>
+    <object-name>enginedoor</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.engine.toggle();</script>
+      </binding>
+    </action>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>enginedoor</object-name>
+    <property>sim/model/door-positions/engine/position-norm</property>
+    <factor> -80 </factor>
+<center>
+<x-m>2.2353</x-m>
+<y-m>-0.1712</y-m>
+<z-m>-0.0171</z-m>
+</center>
+    <axis>
+      <y> -1 </y>
+    </axis>
+  </animation>
+  <!--Cabin doors-->
+  <animation>
+    <type>pick</type>
+    <object-name>doorL</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.crew.toggle();</script>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>doorL</object-name>
+    <property>sim/model/door-positions/crew/position-norm</property>
+    <factor> -80 </factor>
+<center>
+<x-m>-0.5365</x-m>
+<y-m>-0.0111</y-m>
+<z-m>0.8397</z-m>
+</center>
+    <axis>
+      <x> 1 </x>
+    </axis>
+  </animation>
+  
+
+  
+  <animation>
+    <type>pick</type>
+    <object-name>doorR</object-name>
+    <action>
+      <button>0</button>
+      <repeatable>false</repeatable>  
+      <binding>
+        <command>nasal</command>
+        <script>doors.passenger.toggle();</script>
+      </binding>
+    </action>
+  </animation>
+  
+  <animation>
+    <type>rotate</type>
+    <object-name>doorR</object-name>
+    <property>sim/model/door-positions/passenger/position-norm</property>
+    <factor> 80 </factor>
+<center>
+<x-m>-0.5365</x-m>
+<y-m>0.0111</y-m>
+<z-m>0.8397</z-m>
+</center>
+    <axis>
+      <x> 1 </x>
+    </axis>
+  </animation>
+<!--Interior-->
+<!--Panel-->
+ <model>
+    <path>Panel/panel.xml</path>
+    <offsets>
+      <x-m>-2.05726</x-m>
+      <z-m>0.26704</z-m>
+<pitch-deg>-16.804</pitch-deg>
+    </offsets>
+    </model>
+<!--Throttle Lever-->
+ <model>    <path>thrust.ac</path>
+    <offsets>
+      <x-m> -1.6</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.2 </z-m>
+      <roll-deg>    0 </roll-deg>
+      <pitch-deg>   0 </pitch-deg>
+      <heading-deg> 0 </heading-deg>
+    </offsets>
+  </model>
+       <animation>
+    <type>rotate</type>
+    <object-name>thrust</object-name>
+    <property>controls/engines/engine[0]/throttle</property>
+    <factor> 50 </factor>
+    <center>
+              <z-m> -0.01 </z-m>
+          </center>
+    <axis>
+      <x>  0 </x>
+      <y> -1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+<!--Flaps lever-->
+    <model>    <path>flaps.ac</path>
+    <offsets>
+      <x-m> -1.3</x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.2 </z-m>
+      <roll-deg>    0 </roll-deg>
+      <pitch-deg>   0 </pitch-deg>
+      <heading-deg> 0 </heading-deg>
+    </offsets>
+  </model>
+   <animation>
+    <type>rotate</type>
+    <object-name>flaps</object-name>
+    <property>controls/flight/flaps</property>
+    <factor> 40 </factor>
+    <center>
+      <x-m> 0.11</x-m>
+      <z-m> -0.09 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+<!--Prop animation-->
+
+      <animation>
+    <type>spin</type>
+    <object-name>prop</object-name>
+    <condition>
+      <greater-than>
+        <property>engines/engine[0]/rpm</property>
+        <value> 5 </value>
+      </greater-than>
+    </condition>
+    <property>/engines/engine[0]/rpm</property>
+    <factor> 1 </factor>
+    <center>
+      <z-m>0.28927</z-m>
+    </center>
+    <axis>
+      <x> -1 </x>
+      <y>  0 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+<!--YOKES-->
+  <model>
+      <path>yoke.ac</path>
+      <offsets>
+                <x-m>-1.6 </x-m>
+      <y-m>  -0.35 </y-m>
+      <z-m> -0.2 </z-m>
+      <heading-deg>90</heading-deg>
+  </offsets>
+</model>
+  <model>
+      <path>yoke.ac</path>
+      <offsets>
+                <x-m>-1.6 </x-m>
+      <y-m>  0.35 </y-m>
+      <z-m> -0.2 </z-m>
+      <heading-deg>90</heading-deg>
+  </offsets>
+</model>
+<!--Yoke animation-->
+
+ <!-- Aileron -->
+  <animation>
+    <type>rotate</type>
+    <object-name>yoke</object-name>
+    <property>controls/flight/aileron</property>
+    <factor> 10 </factor>
+        <center>
+      <z-m> -0.05 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y>  1 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+<!--Elevator-->
+  <animation>
+    <type>rotate</type>
+    <object-name>yoke</object-name>
+    <property>controls/flight/elevator</property>
+    <factor> 19 </factor>
+<center>
+      <z-m> -0.05 </z-m>
+</center>
+    <axis>
+      <x>  -1 </x>
+      <y> 0 </y>
+      <z>  0 </z>
+    </axis>
+  </animation>
+
+  
+  <!--Flight Control surfaces-->
+<!--Elevator-->
+  <animation>
+    <type>rotate</type>
+    <object-name>elevator</object-name>
+    <property>surface-positions/elevator-pos-norm</property>
+    <interpolation>
+      <entry><ind> -0.75 </ind><dep> -12.0 </dep></entry>
+      <entry><ind>  0.00 </ind><dep>   0.0 </dep></entry>
+      <entry><ind>  0.75 </ind><dep>   9.5 </dep></entry>
+    </interpolation>
+    <center>
+      <x-m> 2.9943 </x-m>
+      <z-m> 2.3205 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+<!--Rudder-->
+  <animation>
+    <type>rotate</type>
+    <object-name>rudder</object-name>
+    <property>surface-positions/rudder-pos-norm</property>
+    <factor>60</factor>
+    <center>
+      <x-m> 2.6 </x-m>
+      <z-m> 1.7 </z-m>
+    </center>
+    <axis>
+      <x> 0.5 </x>
+      <y> 0 </y>
+      <z> 1 </z>
+    </axis>
+  </animation>
+<!--Aileron Right and Left-->
+  <animation>
+    <type>rotate</type>
+    <object-name>aileronR</object-name>
+    <property>surface-positions/right-aileron-pos-norm</property>
+    <interpolation>
+      <entry><ind> -0.75 </ind><dep> -60 </dep></entry>
+      <entry><ind>  0.00 </ind><dep>   0 </dep></entry>
+      <entry><ind>  0.75 </ind><dep>  40 </dep></entry>
+    </interpolation>
+    <center>
+            <x-m> 1.6073 </x-m>
+      <y-m> 3.9382 </y-m>
+      <z-m> 0.3457 </z-m>
+    </center>
+    <axis>
+<y>1</y>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>aileronL</object-name>
+    <property>surface-positions/left-aileron-pos-norm</property>
+    <interpolation>
+      <entry><ind> -0.75 </ind><dep> -60 </dep></entry>
+      <entry><ind>  0.00 </ind><dep>   0 </dep></entry>
+      <entry><ind>  0.75 </ind><dep>  40 </dep></entry>
+    </interpolation>
+    <center>
+            <x-m> 1.6073 </x-m>
+      <y-m> -3.9382 </y-m>
+      <z-m> 0.3457 </z-m>
+    </center>
+    <axis>
+<y>1</y>
+    </axis>
+  </animation>
+<!--Flaps-->
+
+ <animation>
+    <type>rotate</type>
+    <object-name>flap</object-name>
+    <property>controls/flight/flaps</property>
+    <factor> 60 </factor>
+    <center>
+      <x-m> 1.5597 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> 0.2764 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 1 </y>
+      <z> 0 </z>
+    </axis>
+  </animation>
+
+
+<!--Wheel steer animation-->
+    <animation>
+    <type>rotate</type>
+    <object-name>gearfront</object-name>
+    <object-name>wheelF</object-name>
+    <property>surface-positions/rudder-pos-norm</property>
+    <factor>20</factor>
+    <center>
+      <x-m> -2.4276 </x-m>
+      <z-m> -0.30 </z-m>
+    </center>
+    <axis>
+      <x> 0 </x>
+      <y> 0 </y>
+      <z> -1 </z>
+    </axis>
+  </animation>
+<!-- Wheel roll animation-->
+  <animation>
+    <type>spin</type>
+    <object-name>wheelF</object-name>
+    <property>gear/gear[0]/rollspeed-ms</property>
+    <factor> 30 </factor>
+  <center>
+      <x-m> -1.97727 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -1.06 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+
+  <animation>
+    <type>spin</type>
+    <object-name>wheelL</object-name>
+    <property>gear/gear[1]/rollspeed-ms</property>
+    <factor> 30 </factor>
+  <center>
+      <x-m> 0.97969 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.965 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+  <animation>
+    <type>spin</type>
+    <object-name>wheelR</object-name>
+    <property>gear/gear[2]/rollspeed-ms</property>
+    <factor> 30 </factor>
+  <center>
+      <x-m> 0.97969 </x-m>
+      <y-m>  0.000 </y-m>
+      <z-m> -0.965 </z-m>
+    </center>
+    <axis>
+      <x>  0.000 </x>
+      <y> -1.000 </y>
+      <z>  0.000 </z>
+    </axis>
+  </animation>
+<!--Lights-->
+<!--Beacon-->
+  <model>
+    <path>light/beacon.xml</path>
+    <offsets>
+      <x-m> 3.159 </x-m>
+      <y-m> 0.00000 </y-m>
+      <z-m> 2.5060 </z-m>
+    </offsets>
+  </model>
+  <!--Navigation Lights-->
+  <model>
+    <path>light/RedLight.xml</path>
+    <offsets>
+      <x-m>1.4375 </x-m>
+      <y-m> 8 </y-m>
+      <z-m>  1.2221 </z-m>
+    </offsets>
+  </model>
+  <model>
+    <path>light/GreenLight.xml</path>
+    <offsets>
+      <x-m>1.4375 </x-m>
+      <y-m> -8 </y-m>
+      <z-m>  1.2221 </z-m>
+    </offsets>
+  </model>
+<!--Landing Light Cone-->
+  <model>
+    <path>light/light-cone.xml</path>
+    <offsets>
+      <x-m>-2.4515 </x-m>
+      <y-m> -0.9520 </y-m>
+      <z-m>  -0.0302 </z-m>
+    </offsets>
+  </model>
+ 
+  </PropertyList>
